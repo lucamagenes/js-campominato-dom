@@ -37,28 +37,65 @@ buttonInput.addEventListener('click', function () {
         numeroCelle = 49;
     } */
 
-    containerEl.innerHTML = ''
+    //pulire il container dopo ogni partita
+    containerEl.innerHTML = '';
 
-    cellGenerator(userLevel)
+    //array legato alla funzione per generare le celle di gioco
+    const [numberCell, numberLevel] = cellGenerator(userLevel);
+
+    //variabile legata alla funzione che genera le bombe
+    const bombs = generateBombs(numberCell);
+    console.log(bombs);
+
+    //selezione di tutte le caselle/celle di gioco
+    const caselle = document.getElementsByClassName('grid_cell')
+
+    //ciclo per la lunghezza totale delle celle
+    for (let i = 0; i < caselle.length; i++) {
+        const casella = caselle[i];
+
+        casella.addEventListener('click', function () {
+            const casellaNumero = parseInt(this.innerText)
+            console.log(casellaNumero);
+
+            bombsFind(casellaNumero, bombs);
+        })
+
+    }
+
+
 
 })
 
-/* function generateBombs(params) {
+//verificare se la cella è una bomba o no 
+function bombsFind(numberCell, bombs) {
+    if (bombs.includes(numberCell)) {
+        console.log('game over');
+    } else {
+        console.log('continua a giocare');
+    }
+}
+
+
+
+//generare un array di 16 bombe in modo casuale
+function generateBombs(numberCell) {
+    //array vuoto
     const bombs = [];
-    //ciclo 16
+    //ciclo array bombs di 16 elementi
     while (bombs.length < 16) {
         //genera un numero casuale tra un min e un max
-        const randomNumber = getRandomNumber(1, x)
+        const randomNumber = getRandomNumber(1, numberCell)
         //verifica se il numero è gia incluso se non lo è aggiungilo
         if (!bombs.includes(randomNumber)) {
             bombs.push(randomNumber)
         }
 
     }
-    return
+    return bombs;
 }
 
-const bombs = generateBombs() */
+//const bombs = generateBombs()
 
 //math random
 function getRandomNumber(min, max) {
@@ -70,49 +107,42 @@ function getRandomNumber(min, max) {
 
 
 //funzione per generare le celle
-function cellGenerator(number) {
+function cellGenerator(numberLevel) {
 
-    var number
-    var x, y;
+    var numberLevel
+    var numberCell;
 
     //condizione per la selezione del livello
-    if (number == 1) {
-        x = 100;
-        y = 10;
+    if (numberLevel == 1) {
+        numberCell = 100;
         //aggiungere classe in base agli elementi generati
         containerEl.classList.remove('cont_due')
         containerEl.classList.remove('cont_tre')
         containerEl.classList.add('cont_uno')
-        console.log(containerEl.classList);
-    } else if (number == 2) {
-        x = 81;
-        y = 9;
+    } else if (numberLevel == 2) {
+        numberCell = 81;
         //aggiungere classe in base agli elementi generati
         containerEl.classList.remove('cont_uno')
         containerEl.classList.remove('cont_tre')
         containerEl.classList.add('cont_due')
-        console.log(containerEl.classList);
 
-    } else if (number == 3) {
-        x = 49;
-        y = 7;
+    } else if (numberLevel == 3) {
+        numberCell = 49;
         //aggiungere classe in base agli elementi generati
         containerEl.classList.remove('cont_uno')
         containerEl.classList.remove('cont_due')
         containerEl.classList.add('cont_tre')
-        console.log(containerEl.classList);
 
     }
 
 
     //generare gli elementi con un loop
-    for (let i = 1; i <= x; i++) {
+    for (let i = 1; i <= numberCell; i++) {
 
         //creare gli elementi da generare
         let cellEl = document.createElement('div');
         //attribuire una classe all'elemto creato
         cellEl.classList.add('grid_cell');
-        cellEl.style.cssText = `width: calc(100% / ${y}; height: calc(100% / ${y})`
         //assegnare il valore ${i} ad ogni elemento
         cellEl.insertAdjacentHTML('beforeend', `<p class="numeri"> ${i} </p>`)
         //appendere gli elementi generati all'elemento selezionato dalla DOM 
@@ -125,5 +155,8 @@ function cellGenerator(number) {
             this.style.backgroundColor = '#03a9f4'
         })
     }
+
+
+    return [numberCell, numberLevel];
 }
 
