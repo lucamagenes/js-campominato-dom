@@ -43,7 +43,7 @@ buttonInput.addEventListener('click', function () {
 
 })
 
-function generateBombs(params) {
+/* function generateBombs(params) {
     const bombs = [];
     //ciclo 16
     while (bombs.length < 16) {
@@ -58,7 +58,7 @@ function generateBombs(params) {
     return
 }
 
-const bombs = generateBombs()
+const bombs = generateBombs() */
 
 //math random
 function getRandomNumber(min, max) {
@@ -80,17 +80,28 @@ function cellGenerator(number) {
         x = 100;
         y = 10;
         //aggiungere classe in base agli elementi generati
+        containerEl.classList.remove('cont_due')
+        containerEl.classList.remove('cont_tre')
         containerEl.classList.add('cont_uno')
+        console.log(containerEl.classList);
     } else if (number == 2) {
         x = 81;
         y = 9;
         //aggiungere classe in base agli elementi generati
+        containerEl.classList.remove('cont_uno')
+        containerEl.classList.remove('cont_tre')
         containerEl.classList.add('cont_due')
+        console.log(containerEl.classList);
+
     } else if (number == 3) {
         x = 49;
         y = 7;
         //aggiungere classe in base agli elementi generati
+        containerEl.classList.remove('cont_uno')
+        containerEl.classList.remove('cont_due')
         containerEl.classList.add('cont_tre')
+        console.log(containerEl.classList);
+
     }
 
 
