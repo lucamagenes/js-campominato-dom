@@ -69,3 +69,11 @@ button {
 .numeri {
     color: white;
 }
+
+.red {
+    background-color: rgb(146, 0, 0);
+}
+
+.blu {
+    background-color: #03a9f4;
+}

@@ -42,6 +42,7 @@ buttonInput.addEventListener('click', function () {
 
     //array legato alla funzione per generare le celle di gioco
     const [numberCell, numberLevel] = cellGenerator(userLevel);
+    console.log(numberCell);
 
     //variabile legata alla funzione che genera le bombe
     const bombs = generateBombs(numberCell);
@@ -49,6 +50,7 @@ buttonInput.addEventListener('click', function () {
 
     //selezione di tutte le caselle/celle di gioco
     const caselle = document.getElementsByClassName('grid_cell')
+
 
     //ciclo per la lunghezza totale delle celle
     for (let i = 0; i < caselle.length; i++) {
@@ -59,6 +61,7 @@ buttonInput.addEventListener('click', function () {
             console.log(casellaNumero);
 
             bombsFind(casellaNumero, bombs);
+
         })
 
     }
@@ -66,6 +69,8 @@ buttonInput.addEventListener('click', function () {
 
 
 })
+
+
 
 //verificare se la cella è una bomba o no 
 function bombsFind(numberCell, bombs) {
@@ -90,7 +95,6 @@ function generateBombs(numberCell) {
         if (!bombs.includes(randomNumber)) {
             bombs.push(randomNumber)
         }
-
     }
     return bombs;
 }
@@ -140,7 +144,7 @@ function cellGenerator(numberLevel) {
     for (let i = 1; i <= numberCell; i++) {
 
         //creare gli elementi da generare
-        let cellEl = document.createElement('div');
+        var cellEl = document.createElement('div');
         //attribuire una classe all'elemto creato
         cellEl.classList.add('grid_cell');
         //assegnare il valore ${i} ad ogni elemento
@@ -159,4 +163,3 @@ function cellGenerator(numberLevel) {
 
     return [numberCell, numberLevel];
 }
-
