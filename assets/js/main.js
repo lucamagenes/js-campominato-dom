@@ -20,6 +20,9 @@ const livelloSelect = document.getElementById('livello');
 const buttonInput = document.getElementById('button');
 
 
+let bombs = []
+
+
 buttonInput.addEventListener('click', function () {
 
     const userLevel = parseInt(livelloSelect.value);
@@ -45,7 +48,7 @@ buttonInput.addEventListener('click', function () {
     console.log(numberCell);
 
     //variabile legata alla funzione che genera le bombe
-    const bombs = generateBombs(numberCell);
+    bombs = generateBombs(numberCell);
     console.log(bombs);
 
     //selezione di tutte le caselle/celle di gioco
@@ -56,13 +59,22 @@ buttonInput.addEventListener('click', function () {
     for (let i = 0; i < caselle.length; i++) {
         const casella = caselle[i];
 
-        casella.addEventListener('click', function () {
-            const casellaNumero = parseInt(this.innerText)
-            console.log(casellaNumero);
+        casella.addEventListener('click', handleClick)
+        /*  const casellaNumero = parseInt(this.innerText)
+         console.log(casellaNumero);
 
-            bombsFind(casellaNumero, bombs);
-
-        })
+         if (bombsFind(casellaNumero, bombs)) {
+             //se è una bomba colorala di rosso
+             this.style.backgroundColor = 'red'
+             //GAME OVER
+             console.log('GAME OVER');
+             // mostra tuttte le bombe
+         } else {
+             //colora di azzurro
+             this.style.backgroundColor = 'cornflowerblue'
+             //continua a giocare
+             console.log('continua a giocare');
+         } */
 
     }
 
@@ -70,15 +82,32 @@ buttonInput.addEventListener('click', function () {
 
 })
 
+function handleClick() {
+    const casellaNumero = parseInt(this.innerText)
+    console.log(casellaNumero);
+
+    if (bombsFind(casellaNumero, bombs)) {
+        //se è una bomba colorala di rosso
+        this.style.backgroundColor = 'red'
+        //GAME OVER
+        console.log('GAME OVER');
+        // mostra tuttte le bombe
+    } else {
+        //colora di azzurro
+        this.style.backgroundColor = 'cornflowerblue'
+        //continua a giocare
+        console.log('continua a giocare');
+    }
+}
+
 
 
 //verificare se la cella è una bomba o no 
 function bombsFind(numberCell, bombs) {
     if (bombs.includes(numberCell)) {
+        return true
         console.log('game over');
-    } else {
-        console.log('continua a giocare');
-    }
+    } return false
 }
 
 
@@ -154,10 +183,10 @@ function cellGenerator(numberLevel) {
 
 
 
-        //aggiungere un eventListener agli elementi
-        cellEl.addEventListener('click', function () {
-            this.style.backgroundColor = '#03a9f4'
-        })
+        /*  //aggiungere un eventListener agli elementi
+         cellEl.addEventListener('click', function () {
+             this.style.backgroundColor = '#03a9f4'
+         }) */
     }
 
 
